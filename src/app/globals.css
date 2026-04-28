@@ -1,26 +1,134 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens ─────────────────────────────────────────────── */
+@theme {
+  /* Colors */
+  --color-cream: #f5f0e8;
+  --color-cream-dark: #ede7d9;
+  --color-black: #0f0f0f;
+  --color-black-soft: #1a1a1a;
+  --color-orange: #e85d04;
+  --color-orange-light: #ff7a24;
+  --color-orange-muted: #c94e00;
+  --color-gray-muted: #7a7569;
+  --color-gray-line: #d9d4ca;
+
+  /* Fonts */
+  --font-display: var(--font-playfair);
+  --font-sans: var(--font-dm-sans);
+  --font-mono: var(--font-jetbrains-mono);
+  --font-handwritten: var(--font-caveat);
+
+  /* Font sizes */
+  --text-display-xl: clamp(3rem, 7vw, 6rem);
+  --text-display-xl--line-height: 1.05;
+  --text-display-xl--letter-spacing: -0.03em;
+
+  --text-display-lg: clamp(2rem, 4vw, 3.5rem);
+  --text-display-lg--line-height: 1.1;
+
+  --text-heading: clamp(1.5rem, 2.5vw, 2rem);
+  --text-heading--line-height: 1.2;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.7;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+
+  --text-mono-label: 0.75rem;
+  --text-mono-label--line-height: 1;
+  --text-mono-label--letter-spacing: 0.12em;
+
+  /* Spacing */
+  --spacing-section: clamp(5rem, 10vw, 9rem);
+  --spacing-section-sm: clamp(3rem, 6vw, 5rem);
+
+  /* Border radius — sharp, editorial */
+  --radius-sm: 2px;
+  --radius: 2px;
+  --radius-md: 4px;
+}
+
+/* ─── Base ───────────────────────────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: theme(--color-cream);
+  --foreground: theme(--color-black);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100dvh;
+}
+
+/* ─── Grain texture overlay ─────────────────────────────────────── */
+/* Applied via a fixed pseudo-element — overlay on entire page */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+}
+
+/* ─── Typography reset ───────────────────────────────────────────── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────── */
+::selection {
+  background-color: theme(--color-orange);
+  color: theme(--color-cream);
+}
+
+/* ─── Focus visible ──────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid theme(--color-orange);
+  outline-offset: 2px;
+}
+
+/* ─── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

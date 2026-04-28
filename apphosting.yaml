@@ -1,0 +1,53 @@
+runConfig:
+  runtime: nodejs20
+  cpu: 1
+  memoryMiB: 512
+  concurrency: 80
+  minInstances: 0
+  maxInstances: 10
+
+env:
+  - variable: NEXT_PUBLIC_SITE_URL
+    value: https://frankwilsondigital.co.za
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Public keys — set these in the Firebase console or via `firebase apphosting:secrets:set`
+  - variable: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
+    secret: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: NEXT_PUBLIC_CAL_LINK
+    secret: NEXT_PUBLIC_CAL_LINK
+    availability:
+      - BUILD
+      - RUNTIME
+
+  # Server-side secrets — never exposed to the browser
+  - variable: RESEND_API_KEY
+    secret: RESEND_API_KEY
+    availability:
+      - RUNTIME
+
+  - variable: RESEND_FROM_EMAIL
+    value: hello@frankwilsondigital.co.za
+    availability:
+      - RUNTIME
+
+  - variable: RESEND_DEMO_NOTIFY_EMAIL
+    value: frank@frankwilsondigital.co.za
+    availability:
+      - RUNTIME
+
+  - variable: PAYSTACK_SECRET_KEY
+    secret: PAYSTACK_SECRET_KEY
+    availability:
+      - RUNTIME
+
+  - variable: PAYSTACK_WEBHOOK_SECRET
+    secret: PAYSTACK_WEBHOOK_SECRET
+    availability:
+      - RUNTIME

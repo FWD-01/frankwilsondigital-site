@@ -1,0 +1,68 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    name: Type-check, Lint & Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run type-check
+      - run: npm run lint
+      - run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://frankwilsondigital.co.za
+          NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY }}
+          NEXT_PUBLIC_CAL_LINK: ${{ secrets.NEXT_PUBLIC_CAL_LINK }}
+
+  e2e:
+    name: Playwright E2E
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://frankwilsondigital.co.za
+          NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY }}
+          NEXT_PUBLIC_CAL_LINK: ${{ secrets.NEXT_PUBLIC_CAL_LINK }}
+
+      - name: Run Playwright tests
+        run: npx playwright test --project=chromium
+        env:
+          CI: true
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          PAYSTACK_SECRET_KEY: ${{ secrets.PAYSTACK_SECRET_KEY }}
+          PAYSTACK_WEBHOOK_SECRET: ${{ secrets.PAYSTACK_WEBHOOK_SECRET }}
+
+      - name: Upload report on failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
