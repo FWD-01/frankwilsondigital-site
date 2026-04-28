@@ -13,19 +13,6 @@ env:
       - BUILD
       - RUNTIME
 
-  # Public keys — set these in the Firebase console or via `firebase apphosting:secrets:set`
-  - variable: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
-    secret: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
-    availability:
-      - BUILD
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_CAL_LINK
-    secret: NEXT_PUBLIC_CAL_LINK
-    availability:
-      - BUILD
-      - RUNTIME
-
   # Server-side secrets — never exposed to the browser
   - variable: RESEND_API_KEY
     secret: RESEND_API_KEY
