@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
 
   if (event.event === "charge.success") {
     // TODO Phase 5: send welcome email, log to DB, etc.
-    console.log("Payment succeeded:", event.data.reference)
+    // TODO Phase 5: send welcome email, log to DB, etc.
   }
 
   return NextResponse.json({ received: true })

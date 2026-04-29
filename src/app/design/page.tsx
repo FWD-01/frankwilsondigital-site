@@ -85,7 +85,7 @@ export default function DesignPage() {
           <div>
             <span className="font-mono text-mono-label text-gray-muted block mb-1">body-lg · DM Sans</span>
             <p className="font-sans text-body-lg text-gray-muted">
-              A modern content system for founders, professionals, and growing businesses who can't afford to look inconsistent.
+              A modern content system for founders, professionals, and growing businesses who can&apos;t afford to look inconsistent.
             </p>
           </div>
           <div>
