@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { useReducedMotion } from "@/hooks/useReducedMotion"
 
-type GSAPCallback = (gsap: typeof import("gsap").default) => gsap.core.Timeline | void
+type GSAPCallback = (gsapInstance: typeof gsap) => gsap.core.Timeline | void
 
 export function useGSAP(callback: GSAPCallback, deps: React.DependencyList = []) {
   const reduced = useReducedMotion()
