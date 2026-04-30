@@ -92,7 +92,7 @@ export function Packages() {
 
         <p className="font-mono text-mono-label text-gray-muted mt-6 text-center">
           Not sure what fits?{" "}
-          Start with the free content strategy demo. We&apos;ll map it out for your business.
+          Start with the free content strategy demo &mdash; we&apos;ll map it out for your business.
         </p>
       </div>
     </section>
