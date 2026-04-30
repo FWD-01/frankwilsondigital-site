@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/Button"
+import { useDemoModal } from "@/context/DemoModalContext"
 
 const navLinks = [
   { label: "Services", href: "#packages" },
@@ -14,6 +15,7 @@ const navLinks = [
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const { open } = useDemoModal()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 80)
@@ -54,8 +56,8 @@ export default function Header() {
 
         {/* CTA */}
         <div className="hidden md:block">
-          <Button variant="primary" size="sm" asChild>
-            <Link href="#demo">Free demo</Link>
+          <Button variant="primary" size="sm" onClick={open}>
+            Free demo
           </Button>
         </div>
 
@@ -97,10 +99,13 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <Button variant="primary" size="sm" className="mt-2 w-full" asChild>
-              <Link href="#demo" onClick={() => setMenuOpen(false)}>
-                Free demo
-              </Link>
+            <Button
+              variant="primary"
+              size="sm"
+              className="mt-2 w-full"
+              onClick={() => { setMenuOpen(false); open() }}
+            >
+              Free demo
             </Button>
           </nav>
         </div>
