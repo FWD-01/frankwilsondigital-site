@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/Button"
-import { submitDemo, BOOKING_URL } from "@/lib/api/submitDemo"
+import { submitDemo } from "@/lib/api/submitDemo"
 import type { DemoFormData } from "@/types/demo"
 
 const INDUSTRIES = [
@@ -32,7 +32,7 @@ const empty: DemoFormData = {
   whatsapp: "",
 }
 
-export function DemoQualifyForm() {
+export function DemoQualifyForm({ onComplete }: { onComplete?: () => void }) {
   const [form, setForm] = useState<DemoFormData>(empty)
   const [status, setStatus] = useState<"idle" | "loading">("idle")
 
@@ -48,7 +48,7 @@ export function DemoQualifyForm() {
     e.preventDefault()
     setStatus("loading")
     await submitDemo(form)
-    window.location.href = BOOKING_URL
+    onComplete?.()
   }
 
   return (
