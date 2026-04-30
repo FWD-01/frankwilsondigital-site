@@ -12,7 +12,7 @@ export const useCases: UseCase[] = [
     id: "professional",
     persona: "The professional",
     description:
-      "You're brilliant at what you do. But explaining it online — consistently, compellingly — is a different skill set.",
+      "You're brilliant at what you do. But explaining it online, consistently and compellingly, is a different skill set.",
     outcome: "Thought leadership content that positions you as the obvious choice.",
   },
   {

@@ -1,5 +1,6 @@
 import { useCases } from "@/content/useCases"
 import { Badge } from "@/components/ui/Badge"
+import { HandwrittenAccent } from "@/components/ui/HandwrittenAccent"
 import { AnimatedSection } from "@/components/ui/AnimatedSection"
 import { StaggerChildren } from "@/components/ui/StaggerChildren"
 
@@ -14,8 +15,8 @@ export function UseCases() {
         <AnimatedSection direction="up">
           <div className="mb-12">
             <Badge label="Who this is for" number="07" className="mb-6" />
-            <h2 className="text-display-lg font-display font-bold text-black max-w-xl">
-              Sound like you?
+            <h2 className="max-w-xl">
+              <HandwrittenAccent text="Sound like you?" color="black" className="text-4xl md:text-5xl leading-snug block" />
             </h2>
           </div>
         </AnimatedSection>

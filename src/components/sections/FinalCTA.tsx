@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/Button"
 import { HandwrittenAccent } from "@/components/ui/HandwrittenAccent"
 import { AnimatedSection } from "@/components/ui/AnimatedSection"
-import Link from "next/link"
+import { BookDemoButton } from "@/components/ui/BookDemoButton"
 
 export function FinalCTA() {
   return (
@@ -20,21 +19,22 @@ export function FinalCTA() {
             <div className="absolute bottom-0 right-0 w-2 h-2 bg-orange" aria-hidden />
 
             <div className="max-w-2xl">
-              <HandwrittenAccent text="one more thing —" className="mb-4 block" color="orange" />
+              <HandwrittenAccent text="one more thing." className="mb-4 block" color="orange" />
 
-              <h2 className="text-display-lg font-display font-bold text-black mb-6">
-                If you&apos;re still thinking about it,
-                that&apos;s what the demo is for.
+              <h2 className="mb-6">
+                <HandwrittenAccent
+                  text="If you're still thinking about it, that's what the demo is for."
+                  className="text-4xl md:text-5xl leading-snug block"
+                  color="black"
+                />
               </h2>
 
               <p className="text-body-lg text-gray-muted mb-10 leading-relaxed">
                 No commitment. No pitch. Just a clear picture of what your digital
-                presence could look like — and a system to make it happen.
+                presence could look like, and a system to make it happen.
               </p>
 
-              <Button variant="primary" size="lg" asChild>
-                <Link href="#demo">Book your free demo</Link>
-              </Button>
+              <BookDemoButton>Book your free demo</BookDemoButton>
             </div>
           </div>
         </AnimatedSection>

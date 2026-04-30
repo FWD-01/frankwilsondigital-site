@@ -12,10 +12,12 @@ import {
   HowWeWork,
   FinalCTA,
 } from "@/components/sections"
+import { DemoModalProvider } from "@/context/DemoModalContext"
+import { DemoModal } from "@/components/modals/DemoModal"
 
 export default function LandingPage() {
   return (
-    <>
+    <DemoModalProvider>
       <Header />
       <main>
         <Hero />
@@ -30,6 +32,7 @@ export default function LandingPage() {
         <FinalCTA />
       </main>
       <Footer />
-    </>
+      <DemoModal />
+    </DemoModalProvider>
   )
 }

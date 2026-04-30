@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/Badge"
+import { HandwrittenAccent } from "@/components/ui/HandwrittenAccent"
 import { PixelDivider } from "@/components/ui/PixelDivider"
 import { AnimatedSection } from "@/components/ui/AnimatedSection"
 
@@ -11,14 +12,14 @@ export function About() {
           <AnimatedSection direction="left">
             <div>
               <Badge label="What this is" number="02" className="mb-6" />
-              <h2 className="text-display-lg font-display font-bold text-black mb-6">
-                Your content system.{" "}
-                <span className="text-orange">Running without you.</span>
+              <h2 className="mb-6">
+                <HandwrittenAccent text="Your content system. " color="black" className="text-4xl md:text-5xl leading-snug" />
+                <HandwrittenAccent text="Running without you." color="orange" className="text-4xl md:text-5xl leading-snug" />
               </h2>
               <p className="text-body-lg text-gray-muted mb-6 leading-relaxed">
                 Frank Wilson Digital is a done-for-you content system. Not a freelancer
                 you have to manage. Not an agency that disappears after onboarding.
-                A system — built around your voice, your goals, and your audience.
+                A system built around your voice, your goals, and your audience.
               </p>
               <p className="text-body text-gray-muted leading-relaxed">
                 Every month, your content is planned, created, and delivered. You

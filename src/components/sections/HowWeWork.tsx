@@ -1,5 +1,6 @@
 import { workSteps } from "@/content/steps"
 import { Badge } from "@/components/ui/Badge"
+import { HandwrittenAccent } from "@/components/ui/HandwrittenAccent"
 import { Button } from "@/components/ui/Button"
 import { PixelDivider } from "@/components/ui/PixelDivider"
 import { AnimatedSection } from "@/components/ui/AnimatedSection"
@@ -17,9 +18,9 @@ export function HowWeWork() {
         <AnimatedSection direction="up">
           <div className="mb-12">
             <Badge label="The process" number="08" className="mb-6 [&>*]:text-gray-muted" />
-            <h2 className="text-display-lg font-display font-bold text-cream max-w-xl">
-              Simple by design.{" "}
-              <span className="text-orange">Powerful by nature.</span>
+            <h2 className="max-w-xl">
+              <HandwrittenAccent text="Simple by design. " color="cream" className="text-4xl md:text-5xl leading-snug" />
+              <HandwrittenAccent text="Powerful by nature." color="orange" className="text-4xl md:text-5xl leading-snug" />
             </h2>
           </div>
         </AnimatedSection>

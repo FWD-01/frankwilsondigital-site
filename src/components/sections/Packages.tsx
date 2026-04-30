@@ -1,5 +1,6 @@
 import { packages } from "@/content/packages"
 import { Badge } from "@/components/ui/Badge"
+import { HandwrittenAccent } from "@/components/ui/HandwrittenAccent"
 import { PackageCTA } from "@/components/ui/PackageCTA"
 import { AnimatedSection } from "@/components/ui/AnimatedSection"
 import { StaggerChildren } from "@/components/ui/StaggerChildren"
@@ -15,10 +16,10 @@ export function Packages() {
       <div className="max-w-6xl mx-auto">
         <AnimatedSection direction="up">
           <div className="mb-12">
-            <Badge label="Services & pricing" number="03" className="mb-6" />
-            <h2 className="text-display-lg font-display font-bold text-black max-w-xl">
-              Choose your system.{" "}
-              <span className="text-orange">Cancel anytime.</span>
+            <Badge label="SERVICES & PRICING" number="03" className="mb-6" />
+            <h2 className="max-w-xl">
+              <HandwrittenAccent text="Choose your system. " color="black" className="text-4xl md:text-5xl leading-snug" />
+              <HandwrittenAccent text="Stay consistent. Look professional." color="orange" className="text-4xl md:text-5xl leading-snug" />
             </h2>
           </div>
         </AnimatedSection>
@@ -90,8 +91,8 @@ export function Packages() {
         </StaggerChildren>
 
         <p className="font-mono text-mono-label text-gray-muted mt-6 text-center">
-          Not sure which fits? Start with the free demo — we&apos;ll figure it out
-          together.
+          Not sure what fits?{" "}
+          Start with the free content strategy demo. We&apos;ll map it out for your business.
         </p>
       </div>
     </section>

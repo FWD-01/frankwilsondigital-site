@@ -19,13 +19,13 @@ export function DemoCTA() {
               className="mb-6 justify-center [&>span]:text-black [&>span:last-child]:border-black [&>span:last-child]:text-black"
             />
 
-            <h2 className="text-display-lg font-display font-bold text-black mb-4">
-              See your content system{" "}
+            <h2 className="mb-4">
+              <HandwrittenAccent text="See your content system " color="black" className="text-4xl md:text-5xl leading-snug" />
               <span className="relative inline-block">
-                before you commit.
+                <HandwrittenAccent text="before you commit." color="black" className="text-4xl md:text-5xl leading-snug" />
                 <HandwrittenAccent
                   text="for free"
-                  className="absolute -top-8 -right-4 text-black text-xl"
+                  className="absolute -top-8 -right-4 text-xl"
                   color="black"
                 />
               </span>
@@ -33,7 +33,7 @@ export function DemoCTA() {
 
             <p className="text-body-lg text-black/70 max-w-xl mx-auto">
               Book a free Content Strategy Demo. I&apos;ll map out exactly what your
-              monthly system would look like — topics, formats, channels, cadence.
+              monthly system would look like: topics, formats, channels, cadence.
               No pitch. No pressure.
             </p>
           </div>

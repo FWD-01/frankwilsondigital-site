@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/Badge"
+import { HandwrittenAccent } from "@/components/ui/HandwrittenAccent"
 import { PixelDivider } from "@/components/ui/PixelDivider"
 import { AnimatedSection } from "@/components/ui/AnimatedSection"
 import { StaggerChildren } from "@/components/ui/StaggerChildren"
@@ -18,7 +19,7 @@ const items: WhyItem[] = [
   {
     title: "Your voice. Not ours.",
     description:
-      "We don't write generic content. We learn your tone, your perspective, your hot takes — and we reproduce them at scale.",
+      "We don't write generic content. We learn your tone, your perspective, your hot takes. Then we reproduce them at scale.",
   },
   {
     title: "It gets better over time.",
@@ -38,9 +39,9 @@ export function WhySystem() {
         <AnimatedSection direction="up">
           <div className="mb-12">
             <Badge label="The system advantage" number="06" className="mb-6" />
-            <h2 className="text-display-lg font-display font-bold text-black max-w-xl">
-              Why a system beats{" "}
-              <span className="text-orange">ad hoc every time.</span>
+            <h2 className="max-w-xl">
+              <HandwrittenAccent text="Why a system beats " color="black" className="text-4xl md:text-5xl leading-snug" />
+              <HandwrittenAccent text="ad hoc every time." color="orange" className="text-4xl md:text-5xl leading-snug" />
             </h2>
           </div>
         </AnimatedSection>
