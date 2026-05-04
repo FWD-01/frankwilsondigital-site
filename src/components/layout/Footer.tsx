@@ -1,8 +1,12 @@
+"use client"
+
 import Link from "next/link"
 import { PixelDivider } from "@/components/ui/PixelDivider"
+import { useDemoModal } from "@/context/DemoModalContext"
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { open } = useDemoModal()
 
   return (
     <footer className="bg-black text-cream pt-16 pb-10 px-6">
@@ -28,7 +32,6 @@ export default function Footer() {
                 { label: "Services", href: "#packages" },
                 { label: "About", href: "#about" },
                 { label: "How it works", href: "#how-we-work" },
-                { label: "Free demo", href: "#demo" },
               ].map((link) => (
                 <Link
                   key={link.href}
@@ -38,6 +41,12 @@ export default function Footer() {
                   {link.label}
                 </Link>
               ))}
+              <button
+                onClick={open}
+                className="text-small text-gray-muted hover:text-cream transition-colors duration-200 text-left"
+              >
+                Free demo
+              </button>
             </nav>
           </div>
 

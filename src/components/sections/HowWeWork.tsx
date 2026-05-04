@@ -1,11 +1,10 @@
 import { workSteps } from "@/content/steps"
 import { Badge } from "@/components/ui/Badge"
 import { HandwrittenAccent } from "@/components/ui/HandwrittenAccent"
-import { Button } from "@/components/ui/Button"
 import { PixelDivider } from "@/components/ui/PixelDivider"
 import { AnimatedSection } from "@/components/ui/AnimatedSection"
 import { StaggerChildren } from "@/components/ui/StaggerChildren"
-import Link from "next/link"
+import { BookDemoButton } from "@/components/ui/BookDemoButton"
 
 export function HowWeWork() {
   return (
@@ -40,9 +39,7 @@ export function HowWeWork() {
 
         <PixelDivider className="mb-12 opacity-20" />
 
-        <Button variant="primary" size="lg" asChild>
-          <Link href="#demo">Start with a free demo</Link>
-        </Button>
+        <BookDemoButton>Start with a free demo</BookDemoButton>
       </div>
     </section>
   )

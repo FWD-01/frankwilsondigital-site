@@ -1,9 +1,33 @@
 "use client"
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
+import Cal, { getCalApi } from "@calcom/embed-react"
 import { initiatePaystackPayment } from "@/lib/paystack"
 import { Button } from "@/components/ui/Button"
+import { cn } from "@/lib/utils"
 import type { Package } from "@/types/content"
+
+const CAL_LINK = "roget-van-heerden-ec54lv/30min"
+
+function OnboardingCalendar() {
+  useEffect(() => {
+    ;(async () => {
+      const cal = await getCalApi({ namespace: "onboarding" })
+      cal("ui", { hideEventTypeDetails: true, layout: "week_view" })
+    })()
+  }, [])
+
+  const today = new Date().toISOString().split("T")[0]
+
+  return (
+    <Cal
+      namespace="onboarding"
+      calLink={CAL_LINK}
+      style={{ width: "100%", height: "600px", overflow: "scroll" }}
+      config={{ layout: "week_view", date: today }}
+    />
+  )
+}
 
 interface Props {
   pkg: Package
@@ -45,36 +69,46 @@ export function PaystackModal({ pkg, onClose }: Props) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="ps-modal-title"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 px-4 py-6"
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div className="relative bg-cream w-full max-w-sm p-8 border border-gray-line">
+      <div
+        className={cn(
+          "relative bg-cream w-full p-8 border border-gray-line max-h-[90dvh] overflow-y-auto",
+          state === "success" ? "max-w-4xl" : "max-w-sm"
+        )}
+      >
         <button
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute top-4 right-4 font-mono text-mono-label text-gray-muted hover:text-black leading-none"
+          className="absolute top-4 right-4 font-mono text-mono-label text-gray-muted hover:text-black leading-none z-10"
         >
           ✕
         </button>
 
         {state === "success" ? (
-          <div className="text-center py-4">
-            <div className="w-2 h-2 bg-orange mx-auto mb-6" aria-hidden />
+          <div>
+            <div className="w-2 h-2 bg-orange mb-6" aria-hidden />
             <h3
               id="ps-modal-title"
-              className="font-display text-heading font-bold text-black mb-3"
+              className="font-display text-heading font-bold text-black mb-2"
             >
               You&apos;re in.
             </h3>
-            <p className="text-body text-gray-muted mb-6">
-              Welcome to {pkg.name}. Check your inbox for next steps.
+            <p className="text-body text-gray-muted mb-8">
+              Welcome to {pkg.name}. Your receipt is on its way. Book your
+              onboarding call below — pick any slot in the next 7 days and
+              we&apos;ll hit the ground running.
             </p>
-            <Button variant="outline" size="md" onClick={onClose}>
-              Done
-            </Button>
+            <OnboardingCalendar />
+            <div className="mt-6 text-center">
+              <Button variant="outline" size="md" onClick={onClose}>
+                Done
+              </Button>
+            </div>
           </div>
         ) : (
           <>

@@ -2,7 +2,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/Button"
 import { PaystackModal } from "@/components/ui/PaystackModal"
-import { openCalPopup } from "@/lib/calendly"
+import { useDemoModal } from "@/context/DemoModalContext"
 import type { Package } from "@/types/content"
 
 interface Props {
@@ -12,10 +12,11 @@ interface Props {
 
 export function PackageCTA({ pkg, highlight }: Props) {
   const [showModal, setShowModal] = useState(false)
+  const { open } = useDemoModal()
 
   function handleClick() {
     if (pkg.cta.action === "cal") {
-      openCalPopup()
+      open()
       return
     }
     setShowModal(true)
