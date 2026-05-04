@@ -38,7 +38,7 @@ export default function Header() {
           href="/"
           className="font-display font-bold text-black text-lg tracking-tight"
         >
-          Frank Wilson<span className="text-orange">.</span>
+          Frank Wilson Digital<span className="text-orange">.</span>
         </Link>
 
         {/* Desktop nav */}

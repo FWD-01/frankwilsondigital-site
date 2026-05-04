@@ -15,7 +15,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <p className="font-display font-bold text-xl mb-3">
-              Frank Wilson<span className="text-orange">.</span>
+              Frank Wilson Digital<span className="text-orange">.</span>
             </p>
             <p className="text-small text-gray-muted leading-relaxed max-w-xs">
               Premium digital presence for founders, professionals, and growing businesses.

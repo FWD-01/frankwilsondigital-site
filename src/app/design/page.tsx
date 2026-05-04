@@ -18,7 +18,7 @@ export default function DesignPage() {
           Identity
         </h2>
         <p className="font-display text-display-xl text-black mb-2">
-          Frank Wilson<span className="text-orange">.</span>
+          Frank Wilson Digital<span className="text-orange">.</span>
         </p>
         <p className="font-sans text-body text-gray-muted">
           Playfair Display · DM Sans · JetBrains Mono · Caveat
