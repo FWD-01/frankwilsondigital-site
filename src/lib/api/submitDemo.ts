@@ -7,9 +7,6 @@ export const BOOKING_URL =
   "https://calendly.com/frankwilsondigital/content-strategy-demo"
 
 export async function submitDemo(data: DemoFormData): Promise<void> {
-  // Log for now — replace with Google Sheets / DB write here
-  console.log("[submitDemo]", data)
-
   // POST to /api/demo — maps to existing schema until route is extended
   // TODO: Extend /api/demo to accept full DemoFormData and send richer Resend email
   // TODO: Google Sheets — call appendToSheet(data) here

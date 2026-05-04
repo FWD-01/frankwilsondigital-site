@@ -27,22 +27,22 @@ function CalStep() {
 
 export function DemoModal() {
   const { isOpen, close } = useDemoModal()
-  const [mounted, setMounted] = useState(false)
   const [visible, setVisible] = useState(false)
   const [step, setStep] = useState<1 | 2>(1)
 
-  // Two-phase mount: render first, then apply visible classes to trigger CSS transition
   useEffect(() => {
     if (isOpen) {
-      setMounted(true)
       const raf = requestAnimationFrame(() => {
         requestAnimationFrame(() => setVisible(true))
       })
       return () => cancelAnimationFrame(raf)
     } else {
-      setVisible(false)
-      const t = setTimeout(() => { setMounted(false); setStep(1) }, 250)
-      return () => clearTimeout(t)
+      const raf = requestAnimationFrame(() => setVisible(false))
+      const t = setTimeout(() => setStep(1), 250)
+      return () => {
+        cancelAnimationFrame(raf)
+        clearTimeout(t)
+      }
     }
   }, [isOpen])
 
@@ -63,7 +63,7 @@ export function DemoModal() {
     return () => document.removeEventListener("keydown", onKey)
   }, [close])
 
-  if (!mounted) return null
+  if (!isOpen && !visible) return null
 
   return createPortal(
     <div
