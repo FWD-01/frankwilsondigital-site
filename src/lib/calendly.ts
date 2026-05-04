@@ -1,15 +1,3 @@
-type CalFunction = ((action: string, options?: Record<string, unknown>) => void) & {
-  ns: Record<string, CalFunction>
-  loaded?: boolean
-  q?: unknown[]
-}
-
-declare global {
-  interface Window {
-    Cal?: CalFunction
-  }
-}
-
 const CAL_LINK = process.env.NEXT_PUBLIC_CAL_LINK ?? ""
 
 export function openCalPopup(calLink = CAL_LINK) {
