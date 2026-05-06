@@ -3,6 +3,13 @@ export interface DemoRequestBody {
   email: string
   business: string
   message?: string
+  whatsapp?: string
+  industry?: string
+  websiteOrInstagram?: string
+  contentManager?: string
+  postingFrequency?: string
+  mainGoal?: string
+  biggestChallenge?: string
 }
 
 export interface ContactBody {
