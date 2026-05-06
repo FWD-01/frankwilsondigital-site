@@ -30,6 +30,9 @@ const empty: DemoFormData = {
   biggestChallenge: "",
   email: "",
   whatsapp: "",
+  contentManager: "",
+  postingFrequency: "",
+  mainGoal: "",
 }
 
 export function DemoQualifyForm({ onComplete }: { onComplete?: () => void }) {
@@ -103,6 +106,33 @@ export function DemoQualifyForm({ onComplete }: { onComplete?: () => void }) {
         </div>
       </div>
 
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+        <SelectField
+          label="Who manages your content now?"
+          id="contentManager"
+          value={form.contentManager}
+          onChange={setField("contentManager")}
+          required
+          options={["Nobody", "Me", "An employee", "An agency"]}
+        />
+        <SelectField
+          label="How often do you post?"
+          id="postingFrequency"
+          value={form.postingFrequency}
+          onChange={setField("postingFrequency")}
+          required
+          options={["Never", "Occasionally", "1–2× per week", "Daily"]}
+        />
+        <SelectField
+          label="Main goal for social media?"
+          id="mainGoal"
+          value={form.mainGoal}
+          onChange={setField("mainGoal")}
+          required
+          options={["Get more leads", "Build trust", "Stay top of mind", "All of the above"]}
+        />
+      </div>
+
       <Field
         label="Website or Instagram"
         id="websiteOrInstagram"
@@ -159,6 +189,53 @@ export function DemoQualifyForm({ onComplete }: { onComplete?: () => void }) {
         {status === "loading" ? "Preparing…" : "Continue to booking"}
       </Button>
     </form>
+  )
+}
+
+function SelectField({
+  label,
+  id,
+  value,
+  onChange,
+  required,
+  options,
+}: {
+  label: string
+  id: string
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  required?: boolean
+  options: string[]
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <label
+        htmlFor={id}
+        className="font-mono text-mono-label uppercase tracking-widest text-gray-muted"
+      >
+        {label}
+      </label>
+      <div className="relative">
+        <select
+          id={id}
+          value={value}
+          onChange={onChange}
+          required={required}
+          className="w-full border border-gray-line bg-cream px-4 py-3 font-sans text-body text-black focus:outline-none focus:border-orange appearance-none pr-10"
+        >
+          <option value="" disabled>Select</option>
+          {options.map((opt) => (
+            <option key={opt} value={opt}>{opt}</option>
+          ))}
+        </select>
+        <span
+          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-mono text-mono-label text-gray-muted"
+          aria-hidden
+        >
+          ▾
+        </span>
+      </div>
+    </div>
   )
 }
 

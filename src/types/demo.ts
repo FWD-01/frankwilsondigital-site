@@ -6,4 +6,7 @@ export interface DemoFormData {
   biggestChallenge: string
   email: string
   whatsapp: string
+  contentManager: string
+  postingFrequency: string
+  mainGoal: string
 }
