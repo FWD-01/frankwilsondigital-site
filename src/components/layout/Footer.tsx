@@ -32,6 +32,7 @@ export default function Footer() {
                 { label: "Services", href: "#packages" },
                 { label: "About", href: "#about" },
                 { label: "How it works", href: "#how-we-work" },
+                { label: "Privacy Policy", href: "/privacy" },
               ].map((link) => (
                 <Link
                   key={link.href}

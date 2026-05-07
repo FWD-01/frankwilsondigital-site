@@ -50,3 +50,14 @@ env:
     secret: PAYSTACK_WEBHOOK_SECRET
     availability:
       - RUNTIME
+
+  - variable: NEXT_PUBLIC_TURNSTILE_SITE_KEY
+    secret: NEXT_PUBLIC_TURNSTILE_SITE_KEY
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: TURNSTILE_SECRET_KEY
+    secret: TURNSTILE_SECRET_KEY
+    availability:
+      - RUNTIME

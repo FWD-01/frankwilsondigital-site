@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 import { useDemoModal } from "@/context/DemoModalContext"
 import { DemoQualifyForm } from "@/components/forms/DemoQualifyForm"
 
-function CalStep() {
+function CalStep({ prefill }: { prefill: { name: string; email: string } | null }) {
   useEffect(() => {
     (async () => {
       const cal = await getCalApi({ namespace: "30min" })
@@ -20,7 +20,11 @@ function CalStep() {
       namespace="30min"
       calLink="frank-wilson-digital/30min"
       style={{ width: "100%", height: "600px", overflow: "scroll" }}
-      config={{ layout: "month_view", useSlotsViewOnSmallScreen: "true" }}
+      config={{
+        layout: "month_view",
+        useSlotsViewOnSmallScreen: "true",
+        ...(prefill && { name: prefill.name, email: prefill.email }),
+      }}
     />
   )
 }
@@ -29,6 +33,7 @@ export function DemoModal() {
   const { isOpen, close } = useDemoModal()
   const [visible, setVisible] = useState(false)
   const [step, setStep] = useState<1 | 2>(1)
+  const [calPrefill, setCalPrefill] = useState<{ name: string; email: string } | null>(null)
 
   useEffect(() => {
     if (isOpen) {
@@ -38,7 +43,7 @@ export function DemoModal() {
       return () => cancelAnimationFrame(raf)
     } else {
       const raf = requestAnimationFrame(() => setVisible(false))
-      const t = setTimeout(() => setStep(1), 250)
+      const t = setTimeout(() => { setStep(1); setCalPrefill(null) }, 250)
       return () => {
         cancelAnimationFrame(raf)
         clearTimeout(t)
@@ -125,7 +130,12 @@ export function DemoModal() {
                 presence before the demo.
               </p>
 
-              <DemoQualifyForm onComplete={() => setStep(2)} />
+              <DemoQualifyForm
+                onComplete={(result) => {
+                  setCalPrefill({ name: result.fullName, email: result.email })
+                  setStep(2)
+                }}
+              />
             </>
           ) : (
             <>
@@ -140,7 +150,7 @@ export function DemoModal() {
                 Choose a slot below and we&apos;ll have everything ready before your demo.
               </p>
 
-              <CalStep />
+              <CalStep prefill={calPrefill} />
             </>
           )}
         </div>

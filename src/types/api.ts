@@ -10,6 +10,7 @@ export interface DemoRequestBody {
   postingFrequency?: string
   mainGoal?: string
   biggestChallenge?: string
+  turnstileToken: string
 }
 
 export interface ContactBody {
