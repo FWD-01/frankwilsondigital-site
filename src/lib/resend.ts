@@ -6,7 +6,7 @@ function getResend() {
 }
 
 const FROM = () => process.env.RESEND_FROM_EMAIL ?? "hello@frankwilsondigital.co.za"
-const NOTIFY = () => process.env.RESEND_DEMO_NOTIFY_EMAIL ?? "frank@frankwilsondigital.co.za"
+const NOTIFY = () => process.env.RESEND_DEMO_NOTIFY_EMAIL ?? "admin@frankwilsondigital.co.za"
 
 export async function sendDemoNotification(data: DemoRequestBody) {
   const row = (label: string, value?: string) =>
