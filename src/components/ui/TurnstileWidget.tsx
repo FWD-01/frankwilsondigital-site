@@ -22,6 +22,8 @@ interface Props {
 export function TurnstileWidget({ siteKey, onTokenChange, theme = "light" }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
+  const callbackRef = useRef(onTokenChange)
+  callbackRef.current = onTokenChange
 
   useEffect(() => {
     if (!containerRef.current) return
@@ -33,9 +35,9 @@ export function TurnstileWidget({ siteKey, onTokenChange, theme = "light" }: Pro
       widgetIdRef.current = window.turnstile.render(container, {
         sitekey: siteKey,
         theme,
-        callback: (token: string) => onTokenChange(token),
-        "expired-callback": () => onTokenChange(null),
-        "error-callback": () => onTokenChange(null),
+        callback: (token: string) => callbackRef.current(token),
+        "expired-callback": () => callbackRef.current(null),
+        "error-callback": () => callbackRef.current(null),
       })
     }
 
@@ -60,7 +62,7 @@ export function TurnstileWidget({ siteKey, onTokenChange, theme = "light" }: Pro
         widgetIdRef.current = null
       }
     }
-  }, [siteKey, theme, onTokenChange])
+  }, [siteKey, theme])
 
   return <div ref={containerRef} className="mt-1" />
 }
