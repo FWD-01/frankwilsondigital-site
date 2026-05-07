@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
-import { sendDemoNotification, sendDemoConfirmation } from "@/lib/resend"
+import { sendDemoNotification } from "@/lib/resend"
 import { appendToSheet } from "@/lib/sheets"
 
 const schema = z.object({
@@ -24,7 +24,6 @@ export async function POST(req: NextRequest) {
 
     await Promise.all([
       sendDemoNotification(data),
-      sendDemoConfirmation(data),
       appendToSheet({
         fullName: data.name,
         businessName: data.business,

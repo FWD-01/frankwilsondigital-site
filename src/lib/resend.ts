@@ -33,20 +33,6 @@ export async function sendDemoNotification(data: DemoRequestBody) {
   })
 }
 
-export async function sendDemoConfirmation(data: DemoRequestBody) {
-  return getResend().emails.send({
-    from: FROM(),
-    to: data.email,
-    subject: "Your Free Content Strategy Demo — Frank Wilson Digital",
-    html: `
-      <p>Hi ${data.name},</p>
-      <p>Thanks for requesting a free Content Strategy Demo. I'll be in touch within 24 hours to set up your session.</p>
-      <p>In the meantime, feel free to reply to this email with any questions.</p>
-      <p>— Frank</p>
-      <p style="color:#7a7569;font-size:12px;">Frank Wilson Digital · frankwilsondigital.co.za</p>
-    `,
-  })
-}
 
 export function getResendClient() {
   return getResend()

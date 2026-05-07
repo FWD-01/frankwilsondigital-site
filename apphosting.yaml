@@ -13,6 +13,18 @@ env:
       - BUILD
       - RUNTIME
 
+  - variable: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
+    secret: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: NEXT_PUBLIC_CAL_LINK
+    value: cal_live_3126eb1c0abfc8a05c1ddbccb43cf637
+    availability:
+      - BUILD
+      - RUNTIME
+
   # Server-side secrets — never exposed to the browser
   - variable: RESEND_API_KEY
     secret: RESEND_API_KEY
@@ -25,7 +37,7 @@ env:
       - RUNTIME
 
   - variable: RESEND_DEMO_NOTIFY_EMAIL
-    value: frank@frankwilsondigital.co.za
+    value: admin@frankwilsondigital.co.za
     availability:
       - RUNTIME
 
