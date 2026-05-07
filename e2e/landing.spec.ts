@@ -15,11 +15,10 @@ test("footer is present", async ({ page }) => {
 
 // ── Navigation ───────────────────────────────────────────────────────────────
 
-test("header Free demo link points to #demo", async ({ page }) => {
+test("header Free demo button is present", async ({ page }) => {
   await page.goto("/")
-  const demoLink = page.getByRole("navigation").getByRole("link", { name: /free demo/i })
-  await expect(demoLink).toBeVisible()
-  await expect(demoLink).toHaveAttribute("href", "#demo")
+  const demoBtn = page.getByRole("button", { name: /free demo/i }).first()
+  await expect(demoBtn).toBeVisible()
 })
 
 test("mobile nav opens and closes", async ({ page }) => {
@@ -28,9 +27,10 @@ test("mobile nav opens and closes", async ({ page }) => {
   const menuBtn = page.getByRole("button", { name: /open menu/i })
   await expect(menuBtn).toBeVisible()
   await menuBtn.click()
-  await expect(page.getByRole("link", { name: /free demo/i }).first()).toBeVisible()
+  const mobileDemoBtn = page.getByRole("navigation", { name: /mobile navigation/i }).getByRole("button", { name: /free demo/i })
+  await expect(mobileDemoBtn).toBeVisible()
   await page.getByRole("button", { name: /close menu/i }).click()
-  await expect(page.getByRole("link", { name: /free demo/i }).first()).not.toBeVisible()
+  await expect(mobileDemoBtn).not.toBeVisible()
 })
 
 // ── Sections present ─────────────────────────────────────────────────────────
@@ -44,22 +44,16 @@ test("all main section IDs are in the DOM", async ({ page }) => {
 
 // ── Packages ─────────────────────────────────────────────────────────────────
 
-test("packages section shows three package cards", async ({ page }) => {
+test("packages section shows two package cards", async ({ page }) => {
   await page.goto("/")
   const cards = page.locator("#packages article")
-  await expect(cards).toHaveCount(3)
+  await expect(cards).toHaveCount(2)
 })
 
-test("Starter and Growth CTAs are buttons (not links)", async ({ page }) => {
+test("Essential and Momentum CTAs are buttons (not links)", async ({ page }) => {
   await page.goto("/")
   const getStarted = page.locator("#packages").getByRole("button", { name: /get started/i })
   await expect(getStarted).toHaveCount(2)
-})
-
-test("Authority CTA button is present", async ({ page }) => {
-  await page.goto("/")
-  const bookCall = page.locator("#packages").getByRole("button", { name: /book a call/i })
-  await expect(bookCall).toBeVisible()
 })
 
 test("clicking Get Started opens Paystack email modal", async ({ page }) => {
@@ -81,7 +75,7 @@ test("Paystack modal closes on Escape", async ({ page }) => {
 
 test("demo form submits and shows success state", async ({ page }) => {
   await page.route("/api/demo", (route) =>
-    route.fulfill({ status: 200, contentType: "application/json", body: '{"ok":true}' })
+    route.fulfill({ status: 200, contentType: "application/json", body: '{"success":true}' })
   )
   await page.goto("/")
   await page.locator("#demo").scrollIntoViewIfNeeded()
@@ -89,7 +83,7 @@ test("demo form submits and shows success state", async ({ page }) => {
   await page.getByLabel(/your name/i).fill("Test User")
   await page.getByLabel(/email/i).first().fill("test@example.com")
   await page.getByLabel(/business/i).fill("Test Co")
-  await page.getByRole("button", { name: /book.*demo/i }).click()
+  await page.getByRole("button", { name: /claim your free demo/i }).click()
 
   await expect(page.getByText(/you're booked in/i)).toBeVisible({ timeout: 5000 })
 })
@@ -104,16 +98,16 @@ test("demo form shows error when API fails", async ({ page }) => {
   await page.getByLabel(/your name/i).fill("Test User")
   await page.getByLabel(/email/i).first().fill("test@example.com")
   await page.getByLabel(/business/i).fill("Test Co")
-  await page.getByRole("button", { name: /book.*demo/i }).click()
+  await page.getByRole("button", { name: /claim your free demo/i }).click()
 
-  await expect(page.getByRole("alert")).toBeVisible({ timeout: 5000 })
+  await expect(page.getByRole("alert").first()).toBeVisible({ timeout: 5000 })
 })
 
 // ── 404 ──────────────────────────────────────────────────────────────────────
 
 test("unknown route shows custom 404 page", async ({ page }) => {
   await page.goto("/does-not-exist")
-  await expect(page.getByRole("heading", { name: /404/i })).toBeVisible()
+  await expect(page.getByRole("heading", { name: /page not found/i })).toBeVisible()
 })
 
 // ── Accessibility ─────────────────────────────────────────────────────────────
