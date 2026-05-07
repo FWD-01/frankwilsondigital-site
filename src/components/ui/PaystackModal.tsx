@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button"
 import { cn } from "@/lib/utils"
 import type { Package } from "@/types/content"
 
-const CAL_LINK = "roget-van-heerden-ec54lv/30min"
+const CAL_LINK = "frank-wilson-digital/30min"
 
 function OnboardingCalendar() {
   useEffect(() => {

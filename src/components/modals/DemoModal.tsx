@@ -18,7 +18,7 @@ function CalStep() {
   return (
     <Cal
       namespace="30min"
-      calLink="roget-van-heerden-ec54lv/30min"
+      calLink="frank-wilson-digital/30min"
       style={{ width: "100%", height: "600px", overflow: "scroll" }}
       config={{ layout: "month_view", useSlotsViewOnSmallScreen: "true" }}
     />
