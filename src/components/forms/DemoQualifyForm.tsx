@@ -331,7 +331,7 @@ export function DemoQualifyForm({
         disabled={status === "loading"}
         className="mt-2 w-full sm:w-auto"
       >
-        {status === "loading" ? "Checking…" : "Continue to booking"}
+        {status === "loading" ? "Checking…" : "Submit details"}
       </Button>
     </form>
   )

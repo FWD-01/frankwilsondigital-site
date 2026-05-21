@@ -2,38 +2,23 @@
 
 import { useEffect, useState } from "react"
 import { createPortal } from "react-dom"
-import Cal, { getCalApi } from "@calcom/embed-react"
 import { cn } from "@/lib/utils"
 import { useDemoModal } from "@/context/DemoModalContext"
+import { useRegion } from "@/context/RegionContext"
 import { DemoQualifyForm } from "@/components/forms/DemoQualifyForm"
-
-function CalStep({ prefill }: { prefill: { name: string; email: string } | null }) {
-  useEffect(() => {
-    (async () => {
-      const cal = await getCalApi({ namespace: "30min" })
-      cal("ui", { hideEventTypeDetails: false, layout: "month_view" })
-    })()
-  }, [])
-
-  return (
-    <Cal
-      namespace="30min"
-      calLink="frank-wilson-digital/30min"
-      style={{ width: "100%", height: "600px", overflow: "scroll" }}
-      config={{
-        layout: "month_view",
-        useSlotsViewOnSmallScreen: "true",
-        ...(prefill && { name: prefill.name, email: prefill.email }),
-      }}
-    />
-  )
-}
+import { Button } from "@/components/ui/Button"
 
 export function DemoModal() {
   const { isOpen, close } = useDemoModal()
+  const region = useRegion()
   const [visible, setVisible] = useState(false)
   const [step, setStep] = useState<1 | 2>(1)
-  const [calPrefill, setCalPrefill] = useState<{ name: string; email: string } | null>(null)
+  const [userName, setUserName] = useState("")
+
+  const gcalLink =
+    region === "za"
+      ? process.env.NEXT_PUBLIC_GCAL_LINK_ZA
+      : process.env.NEXT_PUBLIC_GCAL_LINK_INTERNATIONAL
 
   useEffect(() => {
     if (isOpen) {
@@ -43,7 +28,10 @@ export function DemoModal() {
       return () => cancelAnimationFrame(raf)
     } else {
       const raf = requestAnimationFrame(() => setVisible(false))
-      const t = setTimeout(() => { setStep(1); setCalPrefill(null) }, 250)
+      const t = setTimeout(() => {
+        setStep(1)
+        setUserName("")
+      }, 250)
       return () => {
         cancelAnimationFrame(raf)
         clearTimeout(t)
@@ -51,7 +39,6 @@ export function DemoModal() {
     }
   }, [isOpen])
 
-  // Body scroll lock
   useEffect(() => {
     if (isOpen) document.body.style.overflow = "hidden"
     return () => {
@@ -59,7 +46,6 @@ export function DemoModal() {
     }
   }, [isOpen])
 
-  // ESC to close
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") close()
@@ -90,8 +76,7 @@ export function DemoModal() {
       {/* Panel */}
       <div
         className={cn(
-          "relative w-full bg-cream border border-gray-line",
-          step === 1 ? "sm:max-w-2xl" : "sm:max-w-4xl",
+          "relative w-full bg-cream border border-gray-line sm:max-w-2xl",
           "max-h-[92dvh] sm:max-h-[90dvh] overflow-y-auto",
           "transition-transform duration-[250ms]",
           visible ? "translate-y-0" : "translate-y-6 sm:translate-y-4"
@@ -132,25 +117,54 @@ export function DemoModal() {
 
               <DemoQualifyForm
                 onComplete={(result) => {
-                  setCalPrefill({ name: result.fullName, email: result.email })
+                  setUserName(result.fullName)
                   setStep(2)
                 }}
               />
             </>
           ) : (
             <>
+              <div className="w-2 h-2 bg-orange mb-6" aria-hidden />
+
               <h2
                 id="demo-modal-title"
                 className="font-display text-heading font-bold text-black mb-2 leading-snug"
               >
-                Pick a time that works for you
+                You&apos;re in, {userName.split(" ")[0]}.
               </h2>
 
               <p className="font-sans text-body text-gray-muted mb-8 leading-relaxed">
-                Choose a slot below and we&apos;ll have everything ready before your demo.
+                Your details have been saved. Now pick a time that works for
+                you — the call is 30 minutes, no pressure, no obligation.
               </p>
 
-              <CalStep prefill={calPrefill} />
+              {gcalLink ? (
+                <a
+                  href={gcalLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    "inline-flex items-center justify-center gap-2",
+                    "font-sans font-medium tracking-wide",
+                    "bg-orange text-black hover:bg-orange/90 border border-orange",
+                    "px-8 py-4 text-body",
+                    "transition-colors duration-200",
+                    "focus-visible:outline-2 focus-visible:outline-orange focus-visible:outline-offset-2"
+                  )}
+                >
+                  Pick your time slot →
+                </a>
+              ) : (
+                <p className="font-mono text-mono-label text-orange">
+                  Booking link not configured — please contact us directly.
+                </p>
+              )}
+
+              <div className="mt-6">
+                <Button variant="ghost" size="sm" onClick={close}>
+                  Close
+                </Button>
+              </div>
             </>
           )}
         </div>

@@ -31,6 +31,9 @@ test.describe("Payment flow", () => {
   test.beforeEach(async ({ page }) => {
     await mockPaystackSuccess(page)
     await page.goto("/")
+    // Pin to ZA region so ZAR prices are deterministic
+    await page.context().addCookies([{ name: "region", value: "za", domain: "localhost", path: "/" }])
+    await page.reload()
   })
 
   for (const pkg of PACKAGES) {

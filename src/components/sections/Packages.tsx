@@ -1,4 +1,7 @@
+"use client"
+
 import { packages } from "@/content/packages"
+import { useRegion } from "@/context/RegionContext"
 import { Badge } from "@/components/ui/Badge"
 import { HandwrittenAccent } from "@/components/ui/HandwrittenAccent"
 import { PackageCTA } from "@/components/ui/PackageCTA"
@@ -7,6 +10,8 @@ import { StaggerChildren } from "@/components/ui/StaggerChildren"
 import { cn } from "@/lib/utils"
 
 export function Packages() {
+  const region = useRegion()
+
   return (
     <section
       id="packages"
@@ -56,7 +61,11 @@ export function Packages() {
                         pkg.highlight ? "text-cream" : "text-black"
                       )}
                     >
-                      R{pkg.price.toLocaleString("en-ZA")}
+                      {region === "za"
+                        ? `R${pkg.price.toLocaleString("en-ZA")}`
+                        : pkg.priceUSD
+                          ? `$${pkg.priceUSD.toLocaleString("en-US")}`
+                          : `R${pkg.price.toLocaleString("en-ZA")}`}
                     </span>
                     <span className="font-mono text-mono-label text-gray-muted ml-2">
                       /month

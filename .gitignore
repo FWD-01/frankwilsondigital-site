@@ -46,3 +46,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local files
+Profile.pdf
+invoices/
+TECHNICAL_DOCS.md

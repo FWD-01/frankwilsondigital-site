@@ -3,6 +3,7 @@ export interface Package {
   name: string
   tagline: string
   price: number
+  priceUSD?: number
   currency: "ZAR"
   billingCycle: "monthly" | "once-off"
   features: string[]

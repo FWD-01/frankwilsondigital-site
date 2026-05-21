@@ -19,8 +19,14 @@ env:
       - BUILD
       - RUNTIME
 
-  - variable: NEXT_PUBLIC_CAL_LINK
-    value: cal_live_3126eb1c0abfc8a05c1ddbccb43cf637
+  - variable: NEXT_PUBLIC_GCAL_LINK_ZA
+    value: ""  # TODO: Add SA Google Calendar appointment scheduling URL
+    availability:
+      - BUILD
+      - RUNTIME
+
+  - variable: NEXT_PUBLIC_GCAL_LINK_INTERNATIONAL
+    value: ""  # TODO: Add international Google Calendar appointment scheduling URL
     availability:
       - BUILD
       - RUNTIME

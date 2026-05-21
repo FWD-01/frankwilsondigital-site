@@ -43,21 +43,28 @@ test("all main section IDs are in the DOM", async ({ page }) => {
 })
 
 // ── Packages ─────────────────────────────────────────────────────────────────
+// All package tests pin region=za so ZAR prices are deterministic regardless of where tests run
 
 test("packages section shows two package cards", async ({ page }) => {
   await page.goto("/")
+  await page.context().addCookies([{ name: "region", value: "za", domain: "localhost", path: "/" }])
+  await page.reload()
   const cards = page.locator("#packages article")
   await expect(cards).toHaveCount(2)
 })
 
 test("Essential and Momentum CTAs are buttons (not links)", async ({ page }) => {
   await page.goto("/")
+  await page.context().addCookies([{ name: "region", value: "za", domain: "localhost", path: "/" }])
+  await page.reload()
   const getStarted = page.locator("#packages").getByRole("button", { name: /get started/i })
   await expect(getStarted).toHaveCount(2)
 })
 
 test("clicking Get Started opens Paystack email modal", async ({ page }) => {
   await page.goto("/")
+  await page.context().addCookies([{ name: "region", value: "za", domain: "localhost", path: "/" }])
+  await page.reload()
   await page.locator("#packages").getByRole("button", { name: /get started/i }).first().click()
   await expect(page.getByRole("dialog")).toBeVisible()
   await expect(page.locator("#ps-email")).toBeVisible()
@@ -65,6 +72,8 @@ test("clicking Get Started opens Paystack email modal", async ({ page }) => {
 
 test("Paystack modal closes on Escape", async ({ page }) => {
   await page.goto("/")
+  await page.context().addCookies([{ name: "region", value: "za", domain: "localhost", path: "/" }])
+  await page.reload()
   await page.locator("#packages").getByRole("button", { name: /get started/i }).first().click()
   await expect(page.getByRole("dialog")).toBeVisible()
   await page.keyboard.press("Escape")

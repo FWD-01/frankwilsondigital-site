@@ -6,6 +6,7 @@ export const packages: Package[] = [
     name: "Essential",
     tagline: "Build a consistent, professional presence. Done properly.",
     price: 3500,
+    priceUSD: 450,
     currency: "ZAR",
     billingCycle: "monthly",
     features: [
@@ -24,6 +25,7 @@ export const packages: Package[] = [
     name: "Momentum",
     tagline: "More content, more reach, and someone handling your community.",
     price: 6000,
+    priceUSD: 750,
     currency: "ZAR",
     billingCycle: "monthly",
     highlight: true,
