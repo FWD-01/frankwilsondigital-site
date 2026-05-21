@@ -14,11 +14,16 @@ export function DemoModal() {
   const [visible, setVisible] = useState(false)
   const [step, setStep] = useState<1 | 2>(1)
   const [userName, setUserName] = useState("")
+  const [userEmail, setUserEmail] = useState("")
 
-  const gcalLink =
+  const baseLink =
     region === "za"
       ? process.env.NEXT_PUBLIC_GCAL_LINK_ZA
       : process.env.NEXT_PUBLIC_GCAL_LINK_INTERNATIONAL
+
+  const gcalLink = baseLink
+    ? `${baseLink}?name=${encodeURIComponent(userName)}&email=${encodeURIComponent(userEmail)}`
+    : undefined
 
   useEffect(() => {
     if (isOpen) {
@@ -31,6 +36,7 @@ export function DemoModal() {
       const t = setTimeout(() => {
         setStep(1)
         setUserName("")
+        setUserEmail("")
       }, 250)
       return () => {
         cancelAnimationFrame(raf)
@@ -118,6 +124,7 @@ export function DemoModal() {
               <DemoQualifyForm
                 onComplete={(result) => {
                   setUserName(result.fullName)
+                  setUserEmail(result.email)
                   setStep(2)
                 }}
               />
