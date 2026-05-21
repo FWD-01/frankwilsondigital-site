@@ -1,7 +1,5 @@
 import { test, expect, type Page } from "@playwright/test"
 
-const GCAL_ZA = "https://calendar.google.com/calendar/appointments/za-test"
-const GCAL_INTL = "https://calendar.google.com/calendar/appointments/intl-test"
 
 async function mockTurnstile(page: Page) {
   await page.addInitScript(() => {
@@ -37,18 +35,6 @@ async function setRegionCookie(page: Page, region: "za" | "international") {
   ])
 }
 
-async function setGcalEnvVars(page: Page) {
-  await page.addInitScript(
-    ({ za, intl }: { za: string; intl: string }) => {
-      // Inject env vars that Next.js bakes in at build time — override for tests
-      Object.defineProperty(window, "__NEXT_DATA__", { writable: true })
-      // Patch process.env equivalents used by the component
-      ;(window as unknown as Record<string, unknown>)["__GCAL_ZA__"] = za
-      ;(window as unknown as Record<string, unknown>)["__GCAL_INTL__"] = intl
-    },
-    { za: GCAL_ZA, intl: GCAL_INTL }
-  )
-}
 
 async function fillDemoForm(page: Page) {
   await page.getByLabel("Full Name").fill("Jane Doe")

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useLayoutEffect, useRef } from "react"
 
 declare global {
   interface Window {
@@ -23,7 +23,9 @@ export function TurnstileWidget({ siteKey, onTokenChange, theme = "light" }: Pro
   const containerRef = useRef<HTMLDivElement>(null)
   const widgetIdRef = useRef<string | null>(null)
   const callbackRef = useRef(onTokenChange)
-  callbackRef.current = onTokenChange
+  useLayoutEffect(() => {
+    callbackRef.current = onTokenChange
+  })
 
   useEffect(() => {
     if (!containerRef.current) return
