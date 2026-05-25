@@ -14,7 +14,7 @@ env:
       - RUNTIME
 
   - variable: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
-    secret: NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY
+    value: pk_test_4e0c2d6625f1197a4801d8d4e949d2bd8eb39f72
     availability:
       - BUILD
       - RUNTIME
@@ -58,7 +58,7 @@ env:
       - RUNTIME
 
   - variable: NEXT_PUBLIC_TURNSTILE_SITE_KEY
-    secret: NEXT_PUBLIC_TURNSTILE_SITE_KEY
+    value: 0x4AAAAAADK5MycDVzZ-ZMGt
     availability:
       - BUILD
       - RUNTIME
