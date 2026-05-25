@@ -64,6 +64,6 @@ env:
       - RUNTIME
 
   - variable: TURNSTILE_SECRET_KEY
-    secret: TURNSTILE_SECRET_KEY
+    value: 0x4AAAAAADK5Mz6-O00Yz8Uv0tcCMOZDuJg
     availability:
       - RUNTIME
