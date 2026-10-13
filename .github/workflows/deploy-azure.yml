@@ -1,0 +1,47 @@
+name: Deploy to Azure App Service
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  AZURE_WEBAPP_NAME: fwd-site # change if you name the App Service differently
+  NODE_VERSION: "20.x"
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+
+      - run: npm ci
+
+      # NEXT_PUBLIC_* values are baked into the build, so they live here.
+      # Server secrets (Resend, Paystack, Turnstile) live in App Service > Environment variables.
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_SITE_URL: https://frankwilsondigital.co.za
+          NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY }}
+          NEXT_PUBLIC_GCAL_LINK_ZA: https://calendar.app.google/nwRGBmdknAydv18n6
+          NEXT_PUBLIC_GCAL_LINK_INTERNATIONAL: https://calendar.app.google/Cpv8saYgdfVnWDkHA
+          NEXT_PUBLIC_TURNSTILE_SITE_KEY: 0x4AAAAAADK5MycDVzZ-ZMGt
+
+      - name: Package standalone server
+        run: |
+          cp -r public .next/standalone/
+          cp -r .next/static .next/standalone/.next/
+          cd .next/standalone && zip -qr ../../deploy.zip .
+
+      - name: Deploy
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: deploy.zip
