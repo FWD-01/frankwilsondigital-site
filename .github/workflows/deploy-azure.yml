@@ -7,7 +7,7 @@ on:
 
 env:
   AZURE_WEBAPP_NAME: fwd-site # change if you name the App Service differently
-  NODE_VERSION: "20.x"
+  NODE_VERSION: "22.x"
 
 jobs:
   build-and-deploy:
